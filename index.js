@@ -21,7 +21,7 @@
     var fs = require('fs');
     var writeString = buildStringMessage(tagName, message, currentTimestamp, previousTimestamp);
 
-    fs.appendFile(fileName, writeString, function(err) {
+    fs.appendFileSync(fileName, writeString, encoding='utf8', function(err) {
       if(err) {
         return console.log(err);
       }

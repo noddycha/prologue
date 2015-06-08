@@ -1,6 +1,6 @@
 /**
 * Logs application activity along with respective time taken for each requests
-* Testing with existing sample
+*
 */
 
 (function() {
@@ -9,21 +9,29 @@
     return currentTimestamp - previousTimestamp;
   }
 
+  function buildStringMessage(tagName, message, currentTimestamp, previousTimestamp) {
+    var newLine = '\n';
+    var tab = '::\t';
+    var logTime = new Date();
+    var timeDifference = getTimeDifference(currentTimestamp, previousTimestamp);
+    return logTime + tab + tagName + tab + JSON.stringify(message) + tab + currentTimestamp + tab + previousTimestamp + tab + timeDifference + newLine;
+  }
+
   function log(fileName, tagName, message, currentTimestamp, previousTimestamp) {
     var fs = require('fs');
-    var newLine = '\n';
-    var tab = '\t';
-    var timeDifference = getTimeDifference(currentTimestamp, previousTimestamp);
-    var writeString = tagName + tab + message + tab + currentTimestamp + tab + previousTimestamp + tab + timeDifference + newLine;
+    var writeString = buildStringMessage(tagName, message, currentTimestamp, previousTimestamp);
+
     fs.appendFile(fileName, writeString, function(err) {
       if(err) {
         return console.log(err);
       }
-
       console.log('File writtern');
     });
   }
 
+ /**
+ * Sample method for unit testing
+ **/
   function escape(html) {
     return String(html)
       .replace(/&/g, '&amp;')
@@ -33,18 +41,8 @@
       .replace(/>/g, '&gt;');
   }
 
-  function unescape(html) {
-    return String(html)
-      .replace(/&amp;/g, '&')
-      .replace(/&quot;/g, '"')
-      .replace(/&#39;/g, "'")
-      .replace(/&lt;/g, '<')
-      .replace(/&gt;/g, '>');
-  }
-
   module.exports = {
     log: log,
-    escape: escape,
-    unescape: unescape
+    escape: escape
   };
 }).call(this);

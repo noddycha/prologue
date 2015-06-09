@@ -1,10 +1,10 @@
 {
   "name": "prologue",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Node JS profiler + logger",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "make test"
   },
   "repository": {
     "type": "git",
